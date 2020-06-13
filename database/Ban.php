@@ -8,6 +8,38 @@ class Ban
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+    public function deleteMerek($id)
+    {
+        $sql = "DELETE FROM merek_ban WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$id]);
+        return $data;
+    }
+
+    public function deleteTipe($id)
+    {
+        $sql = "DELETE FROM tipe_ban WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$id]);
+        return $data;
+    }
+
+    public function updateMerek($id, $nama)
+    {
+        $sql = "UPDATE merek_ban SET nama = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$nama, $id]);
+        return $data;
+    }
+
+    public function updateTipe($id, $nama)
+    {
+        $sql = "UPDATE tipe_ban SET nama = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$nama, $id]);
+        return $data;
+    }
+
     public function insertBan($merekId, $tipeId, $ukuran, $kadaluarsa, $jumlah, $harga)
     {
         $sql = "INSERT INTO ban (merek_ban_id, tipe_ban_id, ukuran, kadaluarsa, jumlah, harga) VALUES (?,?,?,?,?,?) ";
