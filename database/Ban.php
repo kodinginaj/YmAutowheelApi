@@ -8,6 +8,74 @@ class Ban
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+
+    public function insertNotifikasi($barangId, $jenis, $merek, $tipe, $keterangan, $stock)
+    {
+        $sql = "INSERT INTO notifikasi (barang_id, jenis, merek, type, keterangan, stock) VALUES (?,?,?,?,?,?) ";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$barangId, $jenis, $merek, $tipe, $keterangan, $stock]);
+        return $data;
+    }
+
+    public function checkNotifikasi($id, $jenis)
+    {
+        $sql = "SELECT * FROM `notifikasi` WHERE barang_id = ? AND jenis = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id, $jenis]);
+        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function updateNotifikasi($id, $jenis, $jumlah)
+    {
+        $sql = "UPDATE notifikasi SET stock = ? WHERE barang_id = ? AND jenis = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$jumlah, $id, $jenis]);
+        return $data;
+    }
+
+    public function deleteNotifikasi($id)
+    {
+        $sql = "DELETE FROM notifikasi WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$id]);
+        return $data;
+    }
+
+    public function getBanById($id)
+    {
+        $sql = "SELECT a.*, b.nama AS merek_nama, c.nama AS tipe_nama FROM ban a JOIN merek_ban b ON a.merek_ban_id = b.id JOIN tipe_ban c ON a.tipe_ban_id = c.id WHERE a.id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function updateStockBan($id, $jumlah)
+    {
+        $sql = "UPDATE ban SET jumlah = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$jumlah, $id]);
+        return $data;
+    }
+
+    public function updateBan($id, $ukuran, $harga)
+    {
+        $sql = "UPDATE ban SET ukuran = ?, harga = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$ukuran, $harga, $id]);
+        return $data;
+    }
+
+    public function deleteBan($id)
+    {
+        $sql = "DELETE FROM ban WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$id]);
+        return $data;
+    }
+
+
     public function deleteMerek($id)
     {
         $sql = "DELETE FROM merek_ban WHERE id = ?";
