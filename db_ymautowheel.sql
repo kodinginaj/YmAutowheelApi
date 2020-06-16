@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jun 2020 pada 07.29
+-- Waktu pembuatan: 16 Jun 2020 pada 13.33
 -- Versi server: 10.1.34-MariaDB
 -- Versi PHP: 7.2.7
 
@@ -51,6 +51,14 @@ CREATE TABLE `kategori_suspensi` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `kategori_suspensi`
+--
+
+INSERT INTO `kategori_suspensi` (`id`, `nama`, `created_at`) VALUES
+(1, 'Airsus', '2020-06-15 06:36:14'),
+(3, 'Coillover', '2020-06-15 07:04:08');
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +93,13 @@ CREATE TABLE `merek_suspensi` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `merek_suspensi`
+--
+
+INSERT INTO `merek_suspensi` (`id`, `kategori_suspensi_id`, `nama`, `created_at`) VALUES
+(2, 1, 'AIRGEN', '2020-06-15 07:02:48');
+
 -- --------------------------------------------------------
 
 --
@@ -97,6 +112,14 @@ CREATE TABLE `merek_velg` (
   `nama` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `merek_velg`
+--
+
+INSERT INTO `merek_velg` (`id`, `kategori`, `nama`, `created_at`) VALUES
+(2, '0', 'BBS', '2020-06-16 05:25:03'),
+(3, '1', 'Volk Racing', '2020-06-16 10:48:25');
 
 -- --------------------------------------------------------
 
@@ -183,12 +206,22 @@ INSERT INTO `user` (`id`, `nama`, `email`, `password`, `role`, `created_at`) VAL
 
 CREATE TABLE `velg` (
   `id` int(11) NOT NULL,
+  `kategori_id` int(11) NOT NULL,
   `merek_velg_id` int(11) NOT NULL,
   `spesifikasi` varchar(100) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `velg`
+--
+
+INSERT INTO `velg` (`id`, `kategori_id`, `merek_velg_id`, `spesifikasi`, `jumlah`, `harga`, `created_at`) VALUES
+(2, 0, 2, 'Velg B', 12, '1500000', '2020-06-16 10:40:35'),
+(3, 1, 3, 'Velg C', 10, '2000000', '2020-06-16 11:13:54'),
+(4, 1, 3, 'Velg D', 12, '2500000', '2020-06-16 11:15:07');
 
 --
 -- Indexes for dumped tables
@@ -269,13 +302,13 @@ ALTER TABLE `velg`
 -- AUTO_INCREMENT untuk tabel `ban`
 --
 ALTER TABLE `ban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_suspensi`
 --
 ALTER TABLE `kategori_suspensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek_ban`
@@ -287,19 +320,19 @@ ALTER TABLE `merek_ban`
 -- AUTO_INCREMENT untuk tabel `merek_suspensi`
 --
 ALTER TABLE `merek_suspensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek_velg`
 --
 ALTER TABLE `merek_velg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `suspensi`
@@ -323,7 +356,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `velg`
 --
 ALTER TABLE `velg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
