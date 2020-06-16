@@ -8,6 +8,15 @@ class Suspensi
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+    public function searchKategori($keyword)
+    {
+        $sql = "SELECT * FROM kategori_suspensi WHERE nama LIKE '%$keyword%'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public function deleteSuspensi($id)
     {
         $sql = "DELETE FROM suspensi WHERE id = ?";

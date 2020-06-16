@@ -8,6 +8,15 @@ class Ban
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+    public function searchMerek($keyword)
+    {
+        $sql = "SELECT * FROM merek_ban WHERE nama LIKE '%$keyword%'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
 
     public function insertNotifikasi($barangId, $jenis, $merek, $tipe, $keterangan, $stock)
     {
@@ -19,7 +28,7 @@ class Ban
 
     public function checkNotifikasi($id, $jenis)
     {
-        $sql = "SELECT * FROM `notifikasi` WHERE barang_id = ? AND jenis = ?";
+        $sql = "SELECT * FROM notifikasi WHERE barang_id = ? AND jenis = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id, $jenis]);
         $data = $stmt->fetch(\PDO::FETCH_ASSOC);
