@@ -8,6 +8,14 @@ class Velg
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+    public function updateVelg($id, $spesifikasi, $harga)
+    {
+        $sql = "UPDATE velg SET spesifikasi = ?, harga = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$spesifikasi, $harga, $id]);
+        return $data;
+    }
+
     public function deleteVelg($id)
     {
         $sql = "DELETE FROM velg WHERE id = ?";

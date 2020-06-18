@@ -8,6 +8,14 @@ class Suspensi
         $this->pdo = new PDO('mysql:host=localhost;dbname=db_ymautowheel', 'root', '');
     }
 
+    public function updateSuspensi($id, $spesifikasi, $harga)
+    {
+        $sql = "UPDATE suspensi SET spesifikasi = ?, harga = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $data = $stmt->execute([$spesifikasi, $harga, $id]);
+        return $data;
+    }
+
     public function searchKategori($keyword)
     {
         $sql = "SELECT * FROM kategori_suspensi WHERE nama LIKE '%$keyword%'";
